@@ -44,6 +44,14 @@ const queryslice = apiSlice.injectEndpoints({
       query: (id) => `ticket/company/${id}`,
       keepUnusedDataFor: 5,
     }),
+    getCompanyTrips: builder.query({
+      query: (id) => `trip/company/${id}`,
+      keepUnusedDataFor: 5,
+    }),
+    getCompanyAnalytics: builder.query({
+      query: (id) => `analytics/company/${id}`,
+      keepUnusedDataFor: 5,
+    }),
   }),
 });
 
@@ -52,4 +60,6 @@ export const {
   useGetTicketForClientQuery,
   useGetCompaniesQuery,
   useGetCompanyTicketsQuery,
+  useGetCompanyTripsQuery,
+  useGetCompanyAnalyticsQuery,
 } = queryslice;

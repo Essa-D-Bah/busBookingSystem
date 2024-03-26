@@ -2,52 +2,55 @@ import React, { useState } from "react";
 import { Box, Button, TextField, Typography, Checkbox } from "@mui/material";
 import Form from "../components/Form";
 import { useDispatch } from "react-redux";
-import { useLoginMutation, useRegisterMutation } from "../services/auth/authApiSlice";
+import {
+  useLoginMutation,
+  useRegisterMutation,
+} from "../services/auth/authApiSlice";
 import { setCredentials } from "../services/auth/authSlice";
 import { json, useNavigate } from "react-router-dom";
 export default function SignInPage() {
   const [isRegiter, setIsRegister] = useState(false);
   const [registerData, setRegisterData] = useState({});
   const [loginData, setLoginData] = useState({});
-  const [successMessage, setSuccessMessage] = useState("")
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const [successMessage, setSuccessMessage] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const  [register] = useRegisterMutation();
-  const [login, ] = useLoginMutation()
+  const [register] = useRegisterMutation();
+  const [login] = useLoginMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isRegiter) {
-        try {
-            const userData = await register(registerData).unwrap();
-            const { name } = registerData;
-            const { message } = userData;
-            setSuccessMessage(name + " " + message);
-            setRegisterData({});
-        } catch (error) {
-            console.log("Error registering:", error);
-        }
+      try {
+        const userData = await register(registerData).unwrap();
+        const { name } = registerData;
+        const { message } = userData;
+        setSuccessMessage(name + " " + message);
+        setRegisterData({});
+      } catch (error) {
+        console.log("Error registering:", error);
+      }
     } else {
-        try {
-            const userData = await login(loginData).unwrap();
-            const user = userData.user;
-            const { token} = userData;
-            console.log(user);
+      try {
+        const userData = await login(loginData).unwrap();
+        const user = userData.user;
+        const { token } = userData;
+        console.log(user);
 
-            if (token) {
-                localStorage.setItem("token", token);
-                const localUser = JSON.stringify(user);
-                localStorage.setItem('user', localUser)
-                dispatch(setCredentials({ token, user }));
-            }
-            setLoginData({});
-            navigate("/");
-        } catch (error) {
-            console.log("Error logging in:", error);
+        if (token) {
+          localStorage.setItem("token", token);
+          const localUser = JSON.stringify(user);
+          localStorage.setItem("user", localUser);
+          dispatch(setCredentials({ token, user }));
         }
+        setLoginData({});
+        navigate("/");
+      } catch (error) {
+        console.log("Error logging in:", error);
+      }
     }
-};
+  };
 
   const handleChangeData = (e) => {
     const { name, value } = e.target;
@@ -112,16 +115,27 @@ export default function SignInPage() {
             {isRegiter && (
               <Box>
                 <TextField
-              placeholder=" Confirm Password"
-              type="password"
-              name="confirmPassword"
-              onChange={handleChangeData}
-              fullWidth
-              sx={{ py: 1 }}
-            />
-                <TextField placeholder="Name" name="name" fullWidth onChange={handleChangeData} sx={{ py: 1 }} />
-                <TextField placeholder="Telephone" type="Number" name="telephone" fullWidth onChange={handleChangeData} sx={{ py: 1 }} />
-                <TextField placeholder="Address" name="address" onChange={handleChangeData} fullWidth sx={{ py: 1 }} />
+                  placeholder="Name"
+                  name="name"
+                  fullWidth
+                  onChange={handleChangeData}
+                  sx={{ py: 1 }}
+                />
+                <TextField
+                  placeholder="Telephone"
+                  type="Number"
+                  name="telephone"
+                  fullWidth
+                  onChange={handleChangeData}
+                  sx={{ py: 1 }}
+                />
+                <TextField
+                  placeholder="Address"
+                  name="address"
+                  onChange={handleChangeData}
+                  fullWidth
+                  sx={{ py: 1 }}
+                />
                 <Box display={"flex"} alignItems={"center"}>
                   <Checkbox
                     value={"company"}
@@ -147,7 +161,9 @@ export default function SignInPage() {
                 {isRegiter ? "Register" : "Sign In"}
               </Button>
             </Box>
-            <Typography variant="p" color={'success'}>{successMessage}</Typography>
+            <Typography variant="p" color={"success"}>
+              {successMessage}
+            </Typography>
             <Typography
               color={"primary"}
               sx={{ cursor: "pointer" }}

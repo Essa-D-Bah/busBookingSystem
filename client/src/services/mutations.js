@@ -23,7 +23,28 @@ const mutationSlice = apiSlice.injectEndpoints({
         body: bookingData,
       }),
     }),
+    addTrip: builder.mutation({
+      query: (bookingData) => ({
+        url: "/trip/create",
+        method: "POST",
+        body: bookingData,
+      }),
+    }),
+
+    updateTicket: builder.mutation({
+      query: (bookingData) => ({
+        url: `/ticket/${bookingData.id}`,
+        method: "PUT",
+        body: { status: bookingData.status },
+      }),
+    }),
   }),
 });
 
-export const { useAddBusMutation,useBookBusMutation, useBookTicketMutation } = mutationSlice;
+export const {
+  useAddBusMutation,
+  useBookBusMutation,
+  useBookTicketMutation,
+  useAddTripMutation,
+  useUpdateTicketMutation,
+} = mutationSlice;

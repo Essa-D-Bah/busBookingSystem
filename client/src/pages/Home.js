@@ -1,11 +1,11 @@
-import React from 'react'
-import { Box } from '@mui/material'
-import AdminDashboard from '../features/admin/AdminDashboard'
+import React from "react";
+import { Box } from "@mui/material";
+import CompanyDasboard from "../features/company/CompanyDasboard";
 
 export default function Home() {
   return (
     <Box>
-      <AdminDashboard/>
+      <CompanyDasboard />
     </Box>
-  )
+  );
 }

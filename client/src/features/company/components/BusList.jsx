@@ -1,11 +1,18 @@
-import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,} from '@mui/material';
-import { useGetCompanyBusQuery } from '../../../services/queries'
-import { useSelector } from 'react-redux'
-export default function BusList(){
-  const user = useSelector(state=>state.auth.user)
-  const {isLoading, data, error}=useGetCompanyBusQuery(user.userId)
-  console.log(data);
+import React from "react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
+import { useGetCompanyBusQuery } from "../../../services/queries";
+import { useSelector } from "react-redux";
+export default function BusList() {
+  const user = useSelector((state) => state.auth.user);
+  const { isLoading, data, error } = useGetCompanyBusQuery(user.userId);
   return (
     <TableContainer component={Paper}>
       <Table aria-label="bus table">
@@ -28,4 +35,4 @@ export default function BusList(){
       </Table>
     </TableContainer>
   );
-};
+}

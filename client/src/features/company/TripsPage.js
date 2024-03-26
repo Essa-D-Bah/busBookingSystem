@@ -1,30 +1,29 @@
 import { Box, Button, Typography, Modal } from "@mui/material";
 import React, { useState } from "react";
-import BusList from "./components/BusList";
-import AddBus from "./components/AddBus";
+import AddTrip from "./components/AddTrip";
+import TripList from "./components/TripList";
 
-export default function BusesPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function TripPage() {
+  const [isTrip, setisTrip] = useState(false);
 
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
+  const toggleTrip = () => {
+    setisTrip(!isTrip);
   };
-
   return (
     <Box>
       <Box display={"flex"} justifyContent={"space-between"} padding={2}>
         <Typography variant="h5" color={"primary"}>
-          Buses
+          Trips
         </Typography>
         <Box gap={2} display={"flex"}>
-          <Button variant="contained" onClick={toggleModal}>
-            Add Bus
+          <Button variant="contained" onClick={toggleTrip}>
+            Add Trip
           </Button>
         </Box>
       </Box>
       <Modal
-        open={isModalOpen}
-        onClose={toggleModal}
+        open={isTrip}
+        onClose={toggleTrip}
         aria-labelledby="add-company-modal"
         aria-describedby="modal-to-add-new-company"
       >
@@ -42,10 +41,10 @@ export default function BusesPage() {
             maxWidth: "90%",
           }}
         >
-          <AddBus toggleModal={toggleModal} />
+          <AddTrip toggleModal={toggleTrip} />
         </Box>
       </Modal>
-      <BusList />
+      <TripList />
     </Box>
   );
 }
